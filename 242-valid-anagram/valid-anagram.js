@@ -30,18 +30,12 @@ var isAnagram = function(s, t) {
         }
     }
 
-    if(frequencyMapS.size!==frequencyMapT.size){
-        return false;
-    }
-  let flag=0
   for(const [key,value] of frequencyMapS){
-    if(frequencyMapS.get(key)===frequencyMapT.get(key)){
-        flag=1;
-    }else{
+    if(value!==frequencyMapT.get(key)){
         return false;
     }
   }
+  return true;
 
-return flag===0?false:true;    
 
  };
