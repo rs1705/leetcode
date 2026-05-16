@@ -13,7 +13,7 @@ var isAnagram = function(s, t) {
         return false;
     }
 
-//creating one hashmap for each string(total 2) and comparing the frequencies. if they differ, return false else return true;
+//CREATING ONE HASHMAP FOR EACH STRING( TOTAL TWO) AND COMPARING THE FREQUENCIES OF EACH CHARACTER.
 //     const frequencyMapS= new Map();
 //     const frequencyMapT= new Map();
     
@@ -53,13 +53,10 @@ var isAnagram = function(s, t) {
             
         }
     }
-
     for(let i=0;i<t.length;i++){
        if(frequencyMapS.get(t[i])===undefined) return false;
        frequencyMapS.set(t[i],frequencyMapS.get(t[i])-1)
        if(frequencyMapS.get(t[i])<0) return false;
     }
-    
     return true;
-
  };
