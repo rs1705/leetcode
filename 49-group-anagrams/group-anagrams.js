@@ -3,15 +3,14 @@
  * @return {string[][]}
  */
 var groupAnagrams = function(strs) {
-    //SORTING THE ELEMENTS OF ARRAY APPROACH
-    let ans={}
+    //SORTING THE ELEMENTS OF ARRAY AND STORING INTO HASHMAP APPROACH
+    let map= new Map()
     for(let s of strs){
-       let key= (s.split("").sort().join(""))
-       if(!ans[key]){
-        ans[key]=[]
-       }
-       ans[key].push(s)
+        let key= s.split("").sort().join("")
+        if(!map.get(key)){
+            map.set(key,[])
+        }
+        map.get(key).push(s)
     }
-    return Object.values(ans)
-
+       return [...map.values()]
 };
