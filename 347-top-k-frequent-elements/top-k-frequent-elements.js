@@ -84,8 +84,10 @@ class MaxHeap {
         if (this.heap.length === 0) return null;
         const max = this.heap[0];
         const end = this.heap.pop();
-        if (this.heap.length > 0) this.heap[0] = end;
+        if (this.heap.length > 0){
+         this.heap[0] = end;
         this.bubbleDown();
+        }
         return max;
     }
 
