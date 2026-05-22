@@ -4,27 +4,22 @@
  */
 var evalRPN = function (tokens) {
   const stack = [];
-  console.log(tokens);
   for (let token of tokens) {
-    console.log(token);
     if (token === "+" || token === "-" || token === "*" || token === "/") {
-      let num1 = stack.pop();
       let num2 = stack.pop();
-
-      let operand = token;
-      console.log(num1, operand, num2);
-      switch (operand) {
+      let num1 = stack.pop();
+      switch (token) {
         case "+":
-          stack.push(num2 + num1);
+          stack.push(num1 + num2);
           break;
         case "-":
-          stack.push(num2 - num1);
+          stack.push(num1 - num2);
           break;
         case "*":
-          stack.push(num2 * num1);
+          stack.push(num1 * num2);
           break;
         case "/":
-          stack.push(Math.trunc(num2 / num1));
+          stack.push(Math.trunc(num1 / num2));
           break;
       }
     } else {
