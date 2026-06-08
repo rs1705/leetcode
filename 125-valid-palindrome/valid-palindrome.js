@@ -21,10 +21,10 @@ var isPalindrome = (s) => {
 
     if (s[l].toLowerCase() !== s[r].toLowerCase()) {
       return false;
-    } else {
+    }       
       l++;
       r--;
-    }
+
   }
   return true;
 };
