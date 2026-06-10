@@ -4,19 +4,21 @@
  */
  var trap=(height)=>{
 
-  let lMax = [];
-  let rMax = [];
+   let left = 0;
+  let right = height.length - 1;
+  let rightMax = height[right];
+  let leftMax = height[left];
   let water = 0;
-  lMax[0] = height[0];
-  rMax[height.length - 1] = height[height.length - 1];
-  for (let i = 1; i < height.length; i++) {
-    lMax[i] = Math.max(height[i], lMax[i - 1]);
-  }
-  for (let i = height.length - 2; i >= 0; i--) {
-    rMax[i] = Math.max(height[i], rMax[i + 1]);
-  }
-  for (let i = 0; i < height.length; i++) {
-    water += Math.min(lMax[i], rMax[i]) - height[i];
+  while (left < right) {
+    if (leftMax < rightMax) {
+      left = left + 1;
+      leftMax = Math.max(leftMax, height[left]);
+      water += leftMax - height[left];
+    } else {
+      right = right - 1;
+      rightMax = Math.max(rightMax, height[right]);
+      water += rightMax - height[right];
+    }
   }
   return water;
 };
