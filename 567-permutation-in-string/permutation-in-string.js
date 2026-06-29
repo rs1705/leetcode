@@ -1,70 +1,39 @@
 var checkInclusion = function (s1, s2) {
-//   const compare = (obj1, obj2) => {
-//     if (Object.keys(obj1).length !== Object.keys(obj2).length) {
-//       return false;
-//     }
-//     for (const key in obj1) {
-//       if (obj1[key] !== obj2[key]) {
-//         return false;
-//       }
-//     }
-//     return true;
-//   };
+  if (s1.length > s2.length) return false;
 
-//   let left = 0;
-//   let s1Count = {};
-//   for (let s of s1) {
-//     if (!s1Count[s]) {
-//       s1Count[s] = 0;
-//     }
-//     s1Count[s] = s1Count[s] + 1;
-//   }
+  const s1count = new Array(26).fill(0);
+  const windowcount = new Array(26).fill(0);
 
-//   let windowCount = {};
-//   for (let right = 0; right < s2.length; right++) {
-//     const ch = s2[right];
-//     windowCount[ch] = (windowCount[ch] || 0) + 1;
-//     if (right - left + 1 > s1.length) {
-//       let leftCh = s2[left];
-//       windowCount[leftCh]--;
-//       if (windowCount[leftCh] === 0) delete windowCount[leftCh];
-//       left++;
-//     }
+  for (let i = 0; i < s1.length; i++) {
+    s1count[s1.charCodeAt(i) - 97]++;
+    windowcount[s2.charCodeAt(i) - 97]++;
+  }
 
-//     if (right - left + 1 === s1.length) {
-//       if (compare(s1Count, windowCount)) return true;
-//     }
-//   }
-//   return false;
+  let matches = 0;
+  for (let i = 0; i < 26; i++) {
+    if (s1count[i] === windowcount[i]) matches++;
+  }
 
-
- const s1Count = new Array(26).fill(0);
-  const windowCount = new Array(26).fill(0);
   let left = 0;
-  for (const s of s1) {
-    s1Count[s.charCodeAt(0) - "a".charCodeAt(0)]++;
-  }
+  for (let right = s1.length; right < s2.length; right++) {
+    if (matches === 26) return true;
+    let index = s2.charCodeAt(right) - 97;
+    windowcount[index]++;
 
-  for (let right = 0; right < s2.length; right++) {
-    windowCount[s2[right].charCodeAt(0) - "a".charCodeAt(0)]++;
-
-    if (right - left + 1 > s1.length) {
-      windowCount[s2[left].charCodeAt(0) - "a".charCodeAt(0)]--;
-      left++;
+    if (windowcount[index] === s1count[index]) {
+      matches++;
+    } else if (windowcount[index] === s1count[index] + 1) {
+      matches--;
     }
-    if (right - left + 1 === s1.length) {
-      let matched = true;
-      for (let i = 0; i < 26; i++) {
-        if (s1Count[i] !== windowCount[i]) {
-          matched = false;
-          break;
-        }
-      }
-      if (matched) return true;
+
+    index = s2.charCodeAt(left) - 97;
+    windowcount[index]--;
+    if (windowcount[index] === s1count[index]) {
+      matches++;
+    } else if (windowcount[index] === s1count[index] - 1) {
+      matches--;
     }
+    left++;
   }
-  return false;
-
-
-
+  return matches === 26;
 };
